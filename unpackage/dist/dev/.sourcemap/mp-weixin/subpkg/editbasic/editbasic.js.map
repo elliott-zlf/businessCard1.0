@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;wEAAA,qBACA,sBACA,mD,mDACAA,EAAWC,a","file":"subpkg/editbasic/editbasic.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './subpkg/editbasic/editbasic.vue'\ncreatePage(Page)"],"sourceRoot":""}
