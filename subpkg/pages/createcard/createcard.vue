@@ -306,7 +306,7 @@
 						</view>
 					</view>
 				</view> -->
-				<view class="worksitem">
+				<!-- <view class="worksitem">
                      <view class="worksitem_title">
 						配音价格
 						<text class="required_text">非必填</text>
@@ -320,13 +320,13 @@
 								style="width:450rpx"
 								class="note_text item_input_item"
 								type="text"
-								placeholder="请输入整数"
+								placeholder="价格私聊"
 								placeholder-class="textarea-placeholder"
 							/>
 						</view>
 					  </view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="next_step_box" v-if="cruIndex==1">
@@ -961,7 +961,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	font-size: 14px;
 	font-family: PingFangSC-Regular, PingFang SC;
 	font-weight: 400;
-	color: #999999;
+	color: RGBA(252, 81, 51, 1.00);
 }
 .uploading {
   background: #F2F2F2;	

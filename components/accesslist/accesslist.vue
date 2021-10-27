@@ -66,6 +66,7 @@
 		methods: {
 			handleTravelTo(item) {
 			  console.log('跳转到配音师名片页面',item)
+			   uni.setStorageSync('current', '')
 			  // uni.navigateTo({ url: '/subpkg/pages/teacherlist/teacherlist' })
 				uni.navigateTo({ url: '/subpkg/pages/teacherlist/teacherlist?id='+item.teacher_id })
 			},

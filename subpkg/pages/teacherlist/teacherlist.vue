@@ -93,7 +93,7 @@
         </view>
         <view class="nick_namebox">
           <view class="nick_name">
-            {{ dataList.nickname || "" }}
+            <text class="nick_nameT u-line-1">{{dataList.nickname || ''}}</text>
             <view v-if="dataList.status === 2" class="name_certified"
               >已实名</view
             >
@@ -147,7 +147,7 @@
                 v-if="dataList.share === 1"
                 @click="
                   downloadcopy(
-                    dataList.wechat_number,
+                    dataList.wxnumber,
                     '复制成功，添加时备注：名片'
                   )
                 "
@@ -409,7 +409,7 @@ export default {
       },
       dataList: [],
       tabsList: [],
-	  tabsItem: [],
+	    tabsItem: [],
       audioList: [],
       current: 0,
       modifyShow: false,
@@ -493,6 +493,15 @@ export default {
             });
      });
 		this.tabsItem = this.$u.deepClone(itemworks)
+    var test = uni.getStorageSync('current')
+    console.log('传过来的值', test)
+    if(test !=='') {
+       this.tabsItem.map((item,index) => {
+        if(item.tags[0].value === test){
+            this.current = index
+        }
+       })
+    }
         this.tabsList = itemworks
         if (this.tabsList.length === 0) {
           this.addbtnShow = true;
@@ -1322,5 +1331,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     font-weight: 400;
     color: #666666;
   }
+}
+.nick_nameT {
+		max-width: 450rpx;
+		display: inline-block;
 }
 </style>

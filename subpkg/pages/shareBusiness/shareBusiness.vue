@@ -102,7 +102,7 @@
             </view>
             <view class="nick_namebox">
               <view class="nick_name">
-                {{ dataList.nickname || "" }}
+                <text class="nick_nameT u-line-1">{{dataList.nickname || ''}}</text>
                 <view v-if="dataList.status === 2" class="name_certified"
                   >已实名</view
                 >
@@ -156,7 +156,7 @@
                     v-if="dataList.share === 1"
                     @click="
                       downloadcopy(
-                        dataList.wechat_number,
+                        dataList.wxnumber,
                         '复制成功，添加时备注：名片'
                       )
                     "
@@ -536,7 +536,10 @@ export default {
     handleGoBack() {
       uni.switchTab({
   		  url: '/pages/index/index'
-	  });
+	    });
+      // uni.navigateTo({
+  		//   url: '/pages/index/index'
+	    // });
     },
     handleModifyChange() {
       this.modifyShow = !this.modifyShow;
@@ -1360,5 +1363,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
   .homeye_img {
     width: 28.986rpx;
     height: 28.986rpx;
+  }
+  .nick_nameT {
+		max-width: 450rpx;
+		display: inline-block;
   }
 </style>

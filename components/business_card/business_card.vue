@@ -30,8 +30,8 @@
 		</view>	
 		<view class="nick_namebox">
 			<view class="nick_name">       
-				{{cardData.nickname}}
-				<view class="name_certified" v-if="cardData.status===2">已实名</view>
+				<text class="nick_nameT u-line-1">{{cardData.nickname}}</text>
+				<view v-if="cardData.status===2" class="name_certified">已实名</view>
 			</view>
 		</view>
 		<view class="personalFile" @click="handleTravelTo">
@@ -461,5 +461,9 @@ import { mapState, mapActions } from "vuex";
 		  }	
 		}
 	}
+	}
+	.nick_nameT {
+		max-width: 450rpx;
+		display: inline-block;
 	}
 </style>

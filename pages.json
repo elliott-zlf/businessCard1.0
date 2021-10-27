@@ -7,15 +7,7 @@
 		"style": {
 			"navigationStyle":"custom"
 		}
-	   },
-	   {
-            "path" : "pages/message/message",
-            "style" :                                                                                    
-            {
-              "navigationStyle":"custom"
-            }
-            
-        }
+	   }
         ,{
             "path" : "pages/dubbinglibrary/dubbinglibrary",
             "style" :                                                                                    
@@ -42,7 +34,7 @@
 			"background": "#efeff4"
 		}
 	},
-	"tabBar": {
+    "tabBar": {
 		"selectedColor":"#1274FF",
 		"backgroundColor":"#FFFFFF",
 		"borderStyle":"white",
@@ -55,11 +47,11 @@
 			"selectedIconPath":"./static/tabbar/myActive.png"
 		  },
 		  {
-			"pagePath": "pages/message/message",
-			"text": "接单群",
-			"iconPath": "./static/tabbar/message.png",
-			"selectedIconPath":"./static/tabbar/messageActive.png"
-		  }
+            "pagePath": "pages/dubbinglibrary/dubbinglibrary",
+            "text": "配音师库",
+            "iconPath": "./static/tabbar/demand.png",
+            "selectedIconPath":"./static/tabbar/demandActive.png"
+          }
 		]
 	},
 	"subPackages": [

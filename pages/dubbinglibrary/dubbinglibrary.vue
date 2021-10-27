@@ -131,11 +131,11 @@
 					  </view>
 				  </view> -->
 			</view>
-			<view class="price_screening_box">
+			<!-- <view class="price_screening_box">
 				<view class="price_item" :class="activeIndex==index ? 'activeClass' : ''" v-for="(item,index) in priceList" :key="index" @click="handlePriceScreening(index)">
                  {{item}}
 				</view>
-			</view>
+			</view> -->
 				<scroll-view scroll-y style="height: 100%;width: 100%;"
 				    @refresherrefresh="handlere(current)"
 					:refresher-enabled="true" 
@@ -145,8 +145,8 @@
 					:refresher-triggered="triggered">
 					<view class="page-box" v-if="defaultshow">
 						<view class="teacherOrder" v-for="orderItem in dataList" :key="orderItem.id">
-							<view class="teacher_top_Introduction">
-								<view class="teacher_top_Introduc" @click="handleVisitorsJump(orderItem)">
+							<view class="teacher_top_Introduction" @click="handleVisitorsJump(orderItem)">
+								<view class="teacher_top_Introduc">
 								<view class="top_Introduction_left">
 									<image
 										class="teacher_portrait"
@@ -176,22 +176,22 @@
 											src="@/static/teacherlist/qi.png"
 											mode="scaleToFill"
 										/>
-										<image
-											class="listleft"
-											src="@/static/carddetails/listleft.png"
-											mode="scaleToFill"
-										/>
 									</view>
-									<view class="price_text">
+									<!-- <view class="price_text">
 										<text v-if="orderItem.unit_price!=''" class="text_exclusive">专享价</text>
 										<text v-if="orderItem.unit_price!=''" class="text_price">{{orderItem.unit_price}}元/百字</text>
 										<text v-if="orderItem.unit_price==''" class="text_price">价格私聊</text>
-									</view>
+									</view> -->
 								</view>
 								</view>
 								<view class="top_Introduction_right">
-									<view v-if="!orderItem.type" class="checkWeChat" @click="handleInviteDubbing(orderItem)">查看微信</view>
-									<view v-else class="reg_group" @click="downloadcopy(orderItem.teacher.wechat_number,'复制成功，添加时备注：名片')">复制微信</view>
+									<image
+										class="listleft"
+										src="@/static/carddetails/listleft.png"
+										mode="scaleToFill"
+									/>
+									<!-- <view v-if="false" class="checkWeChat" @click="downloadcopy(orderItem.teacher.wxnumber,'复制成功，添加时备注：名片')">查看微信</view>
+									<view class="reg_group" @click="downloadcopy(orderItem.teacher.wxnumber,'复制成功，添加时备注：名片')">复制微信</view> -->
 								</view>
 							</view>
 							<view class="teacher_bot_voices">
@@ -229,61 +229,13 @@
 					</view>
 					<view style="height:220px"></view>
 				</scroll-view>
-		
 		</view>
 		<view v-if="cardstatus==1" class="applystorage" @click="handleVicTer">
-			<view class="applystorage_btn">
-				<view class="shenqing">申请入库</view>
-				<view class="gengduo">让更多客户听见你</view>
+			<view class="rankbtn">
+				申请入库
+				<!-- <view class="gengduo">让更多客户听见你</view> -->
 			</view>
 		</view>
-		<!-- <u-popup v-model="sharePopShow" :mask-close-able="true" border-radius="10" mode="center" width="519.71rpx" height="306.087rpx">
-			<view>
-			  <view style="height:57.971rpx"></view>	
-              <view class="check_WeChat_test">
-					查看微信
-				</view>
-				<view class="check_WeChat_tips">分享小程序后，即可查看配音师微信</view>
-				<view class="share_btn_box">
-					<button
-						class="cancelSharebtn"
-						hover-class="button-hover"
-						@tap="handleCanceShare"
-					>
-					取消	 
-					</button>
-					<button
-						class="sharebtn"
-						open-type="share"
-						hover-class="button-hover"
-					>
-					分享给朋友	 
-					</button>
-				</view>
-			</view>
-		</u-popup> -->
-		<!-- <u-popup v-model="erweimaShow" :mask-close-able="true" border-radius="10" mode="center" width="557.971rpx" height="625rpx">
-			<view class="erweimabox">
-			   <view class="erweima_iconbox" @click="handlecloseerweima">
-				<view class="close_iconbox">
-					<image
-						class="close_icon"
-						src="@/static/home/close.png"
-						mode="scaleToFill"
-						/>
-				</view>
-				<view style="height:41.667rpx"></view>   
-				<image
-			       class="erweima_icon"
-				   src="@/static/home/erweima.jpeg"
-				   mode="scaleToFill"
-			     />
-			   </view>	
-			   <view class="erweima_box">
-				  添加客服微信，入驻小站
-			   </view>
-			</view>
-		</u-popup>	 -->
 		<u-popup v-model="screeningShow" :mask-close-able="true" mode="right" width="612.319rpx">
 		<view class="popup_content_box">
 			<scroll-view scroll-y="true" style="height: 75%;">
@@ -510,7 +462,8 @@ export default {
 		},
 		// 跳转配音师名片
 		handleVisitorsJump(orderItem) {
-		   console.log('配音师列表',orderItem.teacher_id)	
+		   console.log('配音师列表',orderItem.teacher_id)
+		   uni.setStorageSync('current', this.tagList.tags[this.current].value)
            uni.navigateTo({ url: '/subpkg/pages/teacherlist/teacherlist?id='+orderItem.teacher_id })
 		},
 		async handleList() {
@@ -956,7 +909,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	height: 264.493rpx;
 	background: #FFFFFF;
 	border-radius: 25.362rpx;
-	margin-bottom: 21.739rpx;
+	margin-top: 21.739rpx;
     .teacher_top_Introduction{
 		display: flex;
 		.teacher_top_Introduc{
@@ -985,27 +938,35 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 		.top_Introduction_contenr{
 			margin-left: 18.116rpx;
 			width: 387.681rpx;
+			.teacher_nikeName {
+				height: 100%;
+				display: flex;
+				align-items: center;
+			}
 		.teacher_nikeName_text{
-			max-width: 300rpx;
-			height: 22px;
+			max-width: 350rpx;
+			display: inline-block;
 			font-size: 16px;
 			font-family: PingFangSC-Medium, PingFang SC;
 			font-weight: 500;
 			color: #000000;
-			line-height: 22px;
 		}
 		.teacher_sex {
 			margin-left: 5rpx;	
 			width: 25.362rpx;
 			height: 25.362rpx;
 		}
-		.listleft {
-		 margin-left: 15rpx;	
-          width: 25.362rpx;
-		  height: 25.362rpx;
-		}
 	    }
 		.top_Introduction_right {
+			width: 30%;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			.listleft {	
+			  margin-right: 15rpx;	
+			  width: 32.362rpx;
+			  height: 32.362rpx;
+			}
 			.checkWeChat {
                 margin-top: 5.058rpx;
 				text-align: center;

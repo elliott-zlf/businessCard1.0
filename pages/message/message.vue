@@ -1,6 +1,6 @@
 <template>
 <view>
-	<u-navbar :is-back="false" title="接单群" title-size="36.232rpx" title-color="#000000"></u-navbar>
+	<!-- <u-navbar :is-back="false" title="接单群" title-size="36.232rpx" title-color="#000000"></u-navbar>
 	<view class="teacherlist_box">
 		<view class="pys_popup" v-if="sharePopShow">
           <view class="popup_conent">
@@ -100,188 +100,188 @@
 					</view>
 					<view v-if="!defaultshow" class="page-box">
 						<view class="defaltPage">
-							<!-- <image
-								class="defaltPageimg"
-								src="@/static/ui/defaultPage/d1.png"
-								mode="scaleToFill"
-							/> -->
 							<view class="defaltext">暂无匹配数据</view>
 						</view>
 					</view>
 					<view style="height:220px"></view>
 				</scroll-view>
 		</view>
-	</view>
+	</view> -->
 </view>
 </template>
 
 <script>
-import { logingroup } from '@/api/message'
-import { profileShare } from "@/api/index.js"
-import play from '@/static/home/play.png'
-import playActive from '@/static/home/palyActive.gif'
-import submitForm from '@/components/submitform/submitform.vue'
-import musicAudio from '@/components/audio/audioplay.vue'
-import { mapState, mapActions } from "vuex";
-import sharetubiao from '@/static/home/sharetubiao.png'
 export default {
-	components: {
-		submitForm,
-		musicAudio
-	},
 	data() {
-		return {
-			listtext: [
-					'仅限中介和配音师加群，已有5200申请加入~',
-				],
-			list: [
-				{
-                  name: '发单接单',
-				  id: 0
-				},
-				{
-				  name: '学习交流',
-				  id: 1
-			}],	
-			dataList: [],
-			play: play,
-			sharePopShow: false,
-			playActive: playActive,
-			swiperCurrent: 0,
-			tabsHeight: 0,
-			playStatus: false,
-			erweimaShow: false,
-			dx: 0,
-			groupId: '',
-			webSrc: 'https://wj.qq.com/s2/9032862/464d/',
-			countdown:[],
-			convertminutes: '',
-            defaultshow: true,
-			screeningShow: false,
-			triggered: false,
-			current: 0,
-			shareShow: true,
-			dataPlay: {
-			},
-			loadStatus: ['loadmore','loadmore','loadmore','loadmore'],
-		};
-	},
-	onLoad(options) {
-		this.getUnionid()
-		// this.getOrderList(0);
-	},
-	computed: {
-      ...mapState("user", ["token", "userInfo"]),
-    },
-	onHide() {
-	},
-	onShareAppMessage(res) {
-		this.sharePopShow = false
-		if (res.from === 'button') {// 来自页面内分享按钮
-		    console.log(res.target)
-		}
-		var str = {
-			type: 2,
-			group_id: this.groupId, 
-		}
-		profileShare(str).then((res)=>{
-		  this.getOrderList(this.current)
-		}).catch((err)=>{
-          console.log(err)
-		})
-		return {
-			title: '接单群',
-			imageUrl: '',
-			complete: function(res) {
-				console.log('分享成功', res)
-			},
-		}
-	},
-	filters: {
-      convertMinutes(time) {
-			var time1 = Date.now();
-			var date = new Date(time);
-			var time2 = date.getTime();
-			var resttime = 600-(time1-time2)/1000
-
-			if (resttime) {
-				this.countdown.push(resttime)
-				return parseInt(resttime / 60)
-			}else {
-				this.countdown.push(0)
-				return 0
-			}
-
-		},
-	},
-	methods: {
-		...mapActions("user", ["login"]),
-		getUnionid() {
-			uni.login({
-				provider: "weixin",
-				success: async (result) => {
-				  await this.login(result.code);
-				  this.handleList()
-				// this.getAllteacher()
-				},
-				fail: (error) => {
-				console.log("登录失败", error);
-				},
-			});
-		},
-		async handleList() {
-		  this.getOrderList(0)
-		},
-		// 邀请配音
-		handleApplyGroup(id) {
-			this.groupId = id
-			this.sharePopShow = true
-			// this.$refs.submitform.hadleUpdate()
-		},
-		reachBottom() {
-		},
-		// 页面数据
-		async getOrderList(idx) {
-			// const res = await getDemandList({
-			// 	state: this.list[idx].id
-			// })
-			const res = await logingroup({type: this.list[idx].id})
-			console.log('配音师列表数据', res.data)
-			this.triggered = false
-			this.dataList = res.data
-		},
-		handleCanceShare() {
-			this.sharePopShow = false
-			uni.showShareMenu({
-			  title: '配音师资源',
-		  })
-		},
-		// 跳转到问卷调查
-		handleCheckWeb() {
-          this.erweimaShow = true
-		//   uni.navigateTo({ url: '/pages/webview/webview?src='+ this.webSrc })
-		},
-		handlecloseerweima() {
-			this.erweimaShow = false
-		},
-		// tab栏切换
-		change(index) {
-			this.current = index;
-			this.getOrderList(index);
-		},
-		// 取消选择，收回弹窗
-		handletagCancel(){
-		  this.screeningShow = false
-		},
-		transition({ detail: { dx } }) {
-			this.$refs.tabs.setDx(dx);
-		},
-		animationfinish({ detail: { current } }) {
-			this.$refs.tabs.setFinishCurrent(current);
-			this.getOrderList(current);
-		}
+		return {}
 	}
-};
+}
+// import { logingroup } from '@/api/message'
+// import { profileShare } from "@/api/index.js"
+// import play from '@/static/home/play.png'
+// import playActive from '@/static/home/palyActive.gif'
+// import submitForm from '@/components/submitform/submitform.vue'
+// import musicAudio from '@/components/audio/audioplay.vue'
+// import { mapState, mapActions } from "vuex";
+// import sharetubiao from '@/static/home/sharetubiao.png'
+// export default {
+// 	components: {
+// 		submitForm,
+// 		musicAudio
+// 	},
+// 	data() {
+// 		return {
+// 			listtext: [
+// 					'仅限中介和配音师加群，已有5200申请加入~',
+// 				],
+// 			list: [
+// 				{
+//                   name: '发单接单',
+// 				  id: 0
+// 				},
+// 				{
+// 				  name: '学习交流',
+// 				  id: 1
+// 			}],	
+// 			dataList: [],
+// 			play: play,
+// 			sharePopShow: false,
+// 			playActive: playActive,
+// 			swiperCurrent: 0,
+// 			tabsHeight: 0,
+// 			playStatus: false,
+// 			erweimaShow: false,
+// 			dx: 0,
+// 			groupId: '',
+// 			webSrc: 'https://wj.qq.com/s2/9032862/464d/',
+// 			countdown:[],
+// 			convertminutes: '',
+//             defaultshow: true,
+// 			screeningShow: false,
+// 			triggered: false,
+// 			current: 0,
+// 			shareShow: true,
+// 			dataPlay: {
+// 			},
+// 			loadStatus: ['loadmore','loadmore','loadmore','loadmore'],
+// 		};
+// 	},
+// 	onLoad(options) {
+// 		this.getUnionid()
+// 		// this.getOrderList(0);
+// 	},
+// 	computed: {
+//       ...mapState("user", ["token", "userInfo"]),
+//     },
+// 	onHide() {
+// 	},
+// 	onShareAppMessage(res) {
+// 		this.sharePopShow = false
+// 		if (res.from === 'button') {// 来自页面内分享按钮
+// 		    console.log(res.target)
+// 		}
+// 		var str = {
+// 			type: 2,
+// 			group_id: this.groupId, 
+// 		}
+// 		profileShare(str).then((res)=>{
+// 		  this.getOrderList(this.current)
+// 		}).catch((err)=>{
+//           console.log(err)
+// 		})
+// 		return {
+// 			title: '接单群',
+// 			imageUrl: '',
+// 			complete: function(res) {
+// 				console.log('分享成功', res)
+// 			},
+// 		}
+// 	},
+// 	filters: {
+//       convertMinutes(time) {
+// 			var time1 = Date.now();
+// 			var date = new Date(time);
+// 			var time2 = date.getTime();
+// 			var resttime = 600-(time1-time2)/1000
+
+// 			if (resttime) {
+// 				this.countdown.push(resttime)
+// 				return parseInt(resttime / 60)
+// 			}else {
+// 				this.countdown.push(0)
+// 				return 0
+// 			}
+
+// 		},
+// 	},
+// 	methods: {
+// 		...mapActions("user", ["login"]),
+// 		getUnionid() {
+// 			uni.login({
+// 				provider: "weixin",
+// 				success: async (result) => {
+// 				  await this.login(result.code);
+// 				  this.handleList()
+// 				// this.getAllteacher()
+// 				},
+// 				fail: (error) => {
+// 				console.log("登录失败", error);
+// 				},
+// 			});
+// 		},
+// 		async handleList() {
+// 		  this.getOrderList(0)
+// 		},
+// 		// 邀请配音
+// 		handleApplyGroup(id) {
+// 			this.groupId = id
+// 			this.sharePopShow = true
+// 			// this.$refs.submitform.hadleUpdate()
+// 		},
+// 		reachBottom() {
+// 		},
+// 		// 页面数据
+// 		async getOrderList(idx) {
+// 			// const res = await getDemandList({
+// 			// 	state: this.list[idx].id
+// 			// })
+// 			const res = await logingroup({type: this.list[idx].id})
+// 			console.log('配音师列表数据', res.data)
+// 			this.triggered = false
+// 			this.dataList = res.data
+// 		},
+// 		handleCanceShare() {
+// 			this.sharePopShow = false
+// 			uni.showShareMenu({
+// 			  title: '配音师资源',
+// 		  })
+// 		},
+// 		// 跳转到问卷调查
+// 		handleCheckWeb() {
+//           this.erweimaShow = true
+// 		//   uni.navigateTo({ url: '/pages/webview/webview?src='+ this.webSrc })
+// 		},
+// 		handlecloseerweima() {
+// 			this.erweimaShow = false
+// 		},
+// 		// tab栏切换
+// 		change(index) {
+// 			this.current = index;
+// 			this.getOrderList(index);
+// 		},
+// 		// 取消选择，收回弹窗
+// 		handletagCancel(){
+// 		  this.screeningShow = false
+// 		},
+// 		transition({ detail: { dx } }) {
+// 			this.$refs.tabs.setDx(dx);
+// 		},
+// 		animationfinish({ detail: { current } }) {
+// 			this.$refs.tabs.setFinishCurrent(current);
+// 			this.getOrderList(current);
+// 		}
+// 	}
+// };
 </script>
 <style>
 page {

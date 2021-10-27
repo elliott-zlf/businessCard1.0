@@ -47,6 +47,8 @@
 			  console.log('跳转到配音师名片页面', item)
 			  // //   uni.navigateTo({ url: '/subpkg/pages/teacherlist/teacherlist' })
 			  if (item.teacher.status>0) {
+				 uni.setStorageSync('current', '')
+				 console.log('没走这里吗')
                  uni.navigateTo({ url: '/subpkg/pages/teacherlist/teacherlist?id='+item.user_id })
 			  }else {
                 //  uni.showToast({
