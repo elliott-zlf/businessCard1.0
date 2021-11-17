@@ -485,7 +485,7 @@ page {
 	.popup_conent {
 		position: absolute;
 		padding: 36.232rpx;
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		transform: translate(-50%,-50%);
 		min-width: 579.71rpx;

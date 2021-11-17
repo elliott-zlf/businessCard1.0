@@ -18,8 +18,8 @@
 					 </view>
 					<u-badge :count="item[count] || item['count'] || 0" :offset="offset" size="mini"></u-badge>
 						{{ item.tags[0].value || item.tags[0].value }}
-                    <view v-if="item.unit_price!= ''" :style="[tabSubItemStyle(index)]" class="u-table-subitem">{{item.unit_price}}元/百字</view>
-					<view v-else :style="[tabSubItemStyle(index)]" class="u-table-subitem">价格私聊</view>
+                    <!-- <view v-if="item.unit_price!= ''" :style="[tabSubItemStyle(index)]" class="u-table-subitem">{{item.unit_price}}元/百字</view>
+					<view v-else :style="[tabSubItemStyle(index)]" class="u-table-subitem">价格私聊</view> -->
 					</view>
 					<view v-if="showBar" class="u-tab-bar" :style="[tabBarStyle]"></view>
 				</view>
@@ -80,7 +80,7 @@
 			// 导航栏的高度和行高
 			height: {
 				type: [String, Number],
-				default: 100
+				default: 70
 			},
 			// 字体大小
 			fontSize: {
@@ -190,11 +190,12 @@
 			// 后台获取的（如新闻app顶部的菜单），获取返回需要一定时间，所以list变化时，重新获取布局信息
 			list(n, o) {
 				// list变动时，重制内部索引，否则可能导致超出数组边界的情况
+				console.log('current是多少', this.current)
 				if(n.length !== o.length) this.currentIndex = this.current;
 				// 用$nextTick等待视图更新完毕后再计算tab的局部信息，否则可能因为tab还没生成就获取，就会有问题
 				this.$nextTick(() => {
 					this.init();
-				});
+				});	
 			},
 			current: {
 				immediate: true,

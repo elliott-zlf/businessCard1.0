@@ -142,7 +142,8 @@
 					:scroll-top="scrollInto"
 					@scroll="tabScoll"
 					@scrolltolower="reachBottom"
-					:refresher-triggered="triggered">
+					:refresher-triggered="triggered"
+					>
 					<view class="page-box" v-if="defaultshow">
 						<view class="teacherOrder" v-for="orderItem in dataList" :key="orderItem.id">
 							<view class="teacher_top_Introduction" @click="handleVisitorsJump(orderItem)">
@@ -1231,7 +1232,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	.popup_conent {
 		position: absolute;
 		padding: 36.232rpx;
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		transform: translate(-50%,-50%);
 		min-width: 500.71rpx;

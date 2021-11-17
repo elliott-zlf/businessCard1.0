@@ -110,15 +110,7 @@
 						src="@/static/home2/tuiguang.png"
 						mode="scaleToFill"
 					/>
-					<view class="item_title">推广高效</view>
-				</view>
-				<view class="item_list">
-					<image
-						class="item_icon"
-						src="@/static/home2/huoke.png"
-						mode="scaleToFill"
-					/>
-					<view class="item_title">获客倍增</view>
+					<view class="item_title">一键转发</view>
 				</view>
 				<view class="item_list">
 					<image
@@ -126,7 +118,15 @@
 						src="@/static/home2/jiedan.png"
 						mode="scaleToFill"
 					/>
-					<view class="item_title">接单倍增</view>
+					<view class="item_title">登记入库</view>
+				</view>
+				<view class="item_list">
+					<image
+						class="item_icon"
+						src="@/static/home2/huoke.png"
+						mode="scaleToFill"
+					/>
+					<view class="item_title">直连客户</view>
 				</view>
 			</view>
 			<view class="checkcard_box" @click="handleBelowColumn">
@@ -291,8 +291,8 @@ import { mapState, mapActions } from "vuex";
 			position: absolute;
 			top: 50%;
 			right: 36.232rpx;
-			width: 36.232rpx;
-			height: 36.232rpx;
+			width: 46.232rpx;
+			height: 46.232rpx;
 			transform: translate(0%,-50%);
 		}
 		.personal_list {

@@ -11,6 +11,7 @@ export default {
       // 用户信息
       userInfo: uni.getStorageSync(STORAGE_KEY) || {},
       phoneNumber: uni.getStorageSync(PHONE_NUM) || '',
+      profileStatus: null
     };
   },
   mutations: {
@@ -29,6 +30,9 @@ export default {
         key: TOKEN_KEY,
         data: state.token
       });
+    },
+    setprofileStatus(state, profileStatus) {
+      state.profileStatus = profileStatus
     },
     setPhone(state,phone) {
       state.phoneNumber = phone;
@@ -81,8 +85,10 @@ export default {
         code: userProfile,
       });
       // 登录逻辑
-      console.log('登录请求', res.data)
+      console.log('登录请求', res)
       this.commit('user/setToken', res.data);
+      this.commit('user/setprofileStatus',res.status)
+      uni.setStorageSync('sessionkey', res.count.session_key)
       // this.commit('user/setUserInfo', JSON.parse(userProfile.rawData));
     },
     async saveUserInfo(content,userProfile) {

@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view v-if="loading" class='t-toptips' :style="{top: top,background: cubgColor}" :class="[show?'t-top-show':'']">
-			<view v-if="loading" class="flex flex-sub">
+		<view v-if="loading" class='t-toptips' :style="{top: top,background: cubgColor}" style="margin-left: 75rpx;border: 1px solid #636468;width: 600rpx;height: 50px;border-radius: 4px;" :class="[show?'t-top-show':'']">
+			<view  v-if="loading"  class="flex flex-sub">
 				<view class="flex flex-sub">
 					<view class="cu-progress flex-sub round striped active sm">
 						<view :style="{ background: color,width: value + '%'}"></view>
@@ -14,13 +14,13 @@
 		</view>
 		<!-- #ifdef H5 -->
 		<h5-file 
-		v-if="showH5"
-		ref="h5File"
-		:logo="logo"
-		:showTip="showTip"
-		:progress="value"
-		@abort="onAbort"
-		@close="onCloseH5"
+			v-if="showH5"
+			ref="h5File"
+			:logo="logo"
+			:showTip="showTip"
+			:progress="value"
+			@abort="onAbort"
+			@close="onCloseH5"
 		></h5-file>
 		<!-- #endif -->
 	</view>
@@ -41,20 +41,20 @@ export default {
 		},
 		bgColor: {
 			type: String,
-			default: 'rgba(49, 126, 243, 0.5)',
+			default: 'RGBA(4, 4, 4, 0.5)',
 		},
 		color: {
 			type: String,
-			default: '#55aa00',
+			default: '#1E78FB',
 		}
 	},
 	data() {
 		this.uploadTask = null;
 		this.downloadTask = null;
 		return {
-			cubgColor: '',
+			cubgColor: 'RGBA(4, 4, 4, 0.5)',
 			loading: false,
-			value: 5,
+			value: 0,
 			show: false,
 			msg: '执行完毕~',
 			showH5: false,
@@ -149,6 +149,7 @@ export default {
 			this.uploadTask.upload.addEventListener("progress",(event) => {
 				if(event.lengthComputable){
 					this.value = Math.ceil(event.loaded * 100 / event.total);
+					console.log('会变化的value', this.value)
 					if (this.value > 100) {this.value=100;}
 					this.$forceUpdate();
 				}
@@ -177,7 +178,6 @@ export default {
 			formData['fileName'] = tempFile.name;
 			let opt = {url,name,formData,header,filePath:tempFile.path};
 			let fileName = tempFile.name;
-			console.log('上传的作品', opt)
 			opt['fail'] = (e) => {
 				this.showTip = false;
 				return this.errorHandler('文件上传失败',this.upErr)
@@ -193,7 +193,7 @@ export default {
 			this.showTip = true;
 			this.uploadTask = uni.uploadFile(opt);
 			this.uploadTask&&this.uploadTask.onProgressUpdate(({progress = 0}) => {
-				if (progress <= 100) {
+				if (progress <= 99) {
 					this.value = progress;
 					this.$forceUpdate();
 				}
@@ -344,7 +344,7 @@ export default {
 			this.msg = msg;
 			this.loading = false;
 			this.showTip = false;
-			this.cubgColor = 'rgba(57, 181, 74, 0.5)';
+			this.cubgColor = 'RGBA(4, 4, 4, 0.5)';
 			this.uploadTask = null;
 			this.downloadTask = null;
 			setTimeout(()=>{this.show = false;this.showH5 = false;},1500);
@@ -354,7 +354,7 @@ export default {
 		setdefUI() {
 			this.cubgColor = this.bgColor;
 			this.value = 0;
-			this.loading = false;
+			this.loading = true;
 			this.show = true;
 		},
 		
@@ -365,7 +365,7 @@ export default {
 		errorHandler(errText,reject) {
 			this.msg = errText;
 			this.loading = false;
-			this.cubgColor = 'rgba(229, 77, 66, 0.5)';
+			this.cubgColor = 'RGBA(4, 4, 4, 0.5)';
 			this.uploadTask = null;
 			this.downloadTask = null;
 			setTimeout(()=>{this.show = false;},1500);
@@ -384,6 +384,7 @@ export default {
 		z-index: 90;
 		color: #fff;
 		font-size: 30upx;
+		bottom: 50%;
 		left: 0;
 		display: flex;
 		align-items: center;

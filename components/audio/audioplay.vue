@@ -135,7 +135,6 @@
 			//进入可播放状态
 			onCanplay() { 
 				this.xpjAudio.onCanplay(() => {
-					console.log('音频时长', this.xpjAudio.duration)
 					this.interval = setInterval(()=>{
 						if(this.xpjAudio.duration != 0 && !isNaN(this.xpjAudio.duration)){
 							this.duration = this.xpjAudio.duration;
@@ -152,7 +151,6 @@
 			 //音频播放进度更新
 			onTimeUpdate() {
 				this.xpjAudio.onTimeUpdate(() => {
-					console.log('音频时长', this.currentTime)
 					this.currentTime = this.xpjAudio.currentTime;
 				})
 			},

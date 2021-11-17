@@ -141,7 +141,7 @@
 						src="@/static/home/dianzhanActive.png"
 						mode="scaleToFill"
 					/>
-					<text class="give_like_text">推荐小程序给朋友</text>
+					<text class="give_like_text">推荐名片给好友</text>
 				</view>
 				<view class="travel_to_box">
 					<text class="travel_to_text">5000+配音师/公司在用的智能名片</text>
@@ -467,12 +467,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 		position: fixed;
         bottom: 0;
 		width: 750rpx;
-		height: 97.826rpx;
+		height: 79.71rpx;
 		background: #000000;
 		display: flex;
 		opacity: 0.66;
         .footer_dianzhan_icon {
 			width: 344.203rpx;
+			height: 100%;
 			display: flex;
 			align-items: center;
 			.give_like_icon {
@@ -480,14 +481,14 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				height: 32.609rpx;
 			}
 			.give_like_text {
-                width: 112px;
-				height: 20px;
-				font-size: 14px;
+                width: 202.899rpx;
+				height: 36.232rpx;
+				font-size: 25.362rpx;
 				margin-left: 7.246rpx;
 				font-family: PingFangSC-Medium, PingFang SC;
 				font-weight: 500;
 				color: #FFB70A;
-				line-height: 20px;
+				line-height: 36.232rpx;
 			}
 		}
 		.travel_to_box {

@@ -234,9 +234,10 @@
 							mode="scaleToFill"
 						/>
 					</view>
-					<view class="add_text">添加作品</view>
+					<view class="add_text">上传作品</view>
 				</view>
-				</view>
+				<view v-if="addbtnShow" class="required_text">上传后，名片可被收录到中国配音师库，海量曝光，直连客户</view>
+			</view>
 			</view>
 			</view>
 			<view style="height:90px"></view>
@@ -448,6 +449,7 @@ export default {
 		},
 		// 跳转到创建详情页面
 		handleJumpCreatCard(type) {
+			this.current = 0
 			uni.navigateTo({ url: '/subpkg/pages/editbasic/editbasic?type='+type+'&id='+this.cardId })	
 		},
         // tab栏切换
@@ -619,6 +621,16 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 /* #endif */
 </style>
 <style lang="scss" scoped>
+.required_text {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-top: 9.058rpx;
+	font-size: 25.362rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+	font-weight: 400;
+	color: RGBA(252, 81, 51, 1.00);
+}
 .container {
 	position: relative;
 	height: 100%;

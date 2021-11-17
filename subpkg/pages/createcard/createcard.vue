@@ -246,7 +246,7 @@
 									src="@/static/carddetails/addwork.png"
 									mode="scaleToFill"
 								/>
-								<view class="btn add_uploading">从手机微信中上传</view>
+								<view class="btn add_uploading">从手机微信聊天文件中上传</view>
 							</view>
 					    </view>
 					</view>
@@ -329,6 +329,7 @@
 				</view> -->
 			</view>
 		</view>
+		<view v-if="cruIndex==2" class="required_text">*上传后，名片可被收录到中国配音师库，海量曝光，直连客户</view>
 		<view class="next_step_box" v-if="cruIndex==1">
 			<view class="next_step_btn" @click="handleNextStep">下一步</view>
 		</view>
@@ -400,6 +401,7 @@ import { mapState } from "vuex";
 				subjectTitle: '',
 				styleTitle: '',
 				titleList: '',
+				saveViewShow: true,
 				forUploading: '',
 				headPortrait: '',
 				defaultAvatar: defaultAvatar,
@@ -445,21 +447,24 @@ import { mapState } from "vuex";
 				this.editorPopShow = false
 			},
 			handleSaveView() {
-				serviceublish(this.worksItem).then((res)=>{
-					console.log('保存信息成功', res)
-					uni.setStorageSync('SHOW_TOP', true)
-					uni.navigateBack({
-						delta: 1
-					});
-				})
-				.catch((err)=>{
-                 console.log(err)
-				 uni.showToast({
-					title: err.errmsg,
-					icon: 'none',
-					duration: 2000
-				})
-			    })
+				if(this.saveViewShow) {
+					this.saveViewShow = false
+					serviceublish(this.worksItem).then((res)=>{
+						this.saveViewShow = true
+						uni.setStorageSync('SHOW_TOP', true)
+						uni.navigateBack({
+							delta: 1
+						});
+					})
+					.catch((err)=>{
+						this.saveViewShow = true
+						uni.showToast({
+							title: err.errmsg,
+							icon: 'none',
+							duration: 2000
+						})
+					})
+				}
 			},
 			handleChanggeItem(index) {
               this.cruIndex = index
@@ -561,25 +566,33 @@ import { mapState } from "vuex";
 					 });  
 					 return;
 				 }
-
-				this.forUploading = item
-				this.$refs.lFile.upload({
-					// #ifdef APP-PLUS
-					// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
-					currentWebview: this.$mp.page.$getAppWebview(),
-					// #endif
-					url: "https://www.peiyinstreet.com/business/chat/batch-upload", //替换为你的
-					name: 'file',
-					header: {  //根据你接口需求自定义
-					  userToken: this.token || ''	
-					},
-					formData: {
-					  fileName: '',
-					},
-					// body参数直接写key,value,如：
-					// formData: 'value1',
-					// key2: 'value2',
-				});
+                if (platform == 'android' || platform == 'ios' || platform == 'devtools') {
+					this.forUploading = item
+					this.$refs.lFile.upload({
+						// #ifdef APP-PLUS
+						// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
+						currentWebview: this.$mp.page.$getAppWebview(),
+						// #endif
+						url: "https://www.peiyinstreet.com/business/chat/batch-upload", //替换为你的
+						name: 'file',
+						header: {  //根据你接口需求自定义
+						userToken: this.token || ''	
+						},
+						formData: {
+						fileName: '',
+						},
+						// body参数直接写key,value,如：
+						// formData: 'value1',
+						// key2: 'value2',
+					});
+				}else {
+					uni.showToast({
+						title: "微信小程序仅支持从手机端上传",
+						icon: 'none',
+						mask: true,
+						duration: 3000
+					});
+				}	
 			},
 			onSuccess(res) {
 				if (this.forUploading==='new') {
@@ -958,7 +971,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 .required_text {
 	margin-left: 18.116rpx;
 	margin-top: 18.116rpx;	
-	font-size: 14px;
+	font-size: 25.362rpx;
 	font-family: PingFangSC-Regular, PingFang SC;
 	font-weight: 400;
 	color: RGBA(252, 81, 51, 1.00);
@@ -975,7 +988,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	.popup_conent {
 		position: absolute;
 		padding: 36.232rpx;
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		transform: translate(-50%,-50%);
 		min-width: 500.71rpx;

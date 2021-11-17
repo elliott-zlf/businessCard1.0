@@ -228,7 +228,7 @@
 									src="@/static/carddetails/addwork.png"
 									mode="scaleToFill"
 								/>
-								<view class="btn add_uploading">从手机微信中上传</view>
+								<view class="btn add_uploading">从手机微信聊天文件中上传</view>
 							</view>
 					    </view>
 					</view>
@@ -321,6 +321,7 @@ import { mapState } from "vuex";
 				subjectTitle: '',
 				styleTitle: '',
 				titleList: '',
+				saveViewShow: true,
 				forUploading: '',
 				headPortrait: '',
 				cardId: '',
@@ -441,22 +442,25 @@ import { mapState } from "vuex";
 
 			},
 			handleSaveView() {
-				 console.log('头像数据',this.worksItem)
-				editserviceublish(this.worksItem).then((res)=>{
-					console.log('保存信息成功', res)
-					uni.navigateBack({
-						delta: 1
-					});
-					// uni.redirectTo({ url: '/subpkg/pages/carddetails/carddetails?id='+this.token})
-				})
-				.catch((err)=>{
-					console.log('保存信息成功', err)
-					uni.showToast({
-						title: err.errmsg,
-						icon: 'none',
-						duration: 2000
+				if(this.saveViewShow) {
+                   this.saveViewShow = false
+					editserviceublish(this.worksItem).then((res)=>{
+						uni.navigateBack({
+							delta: 1
+						});
+						console.log('保存服务成功')
+						this.saveViewShow = true
+						// uni.redirectTo({ url: '/subpkg/pages/carddetails/carddetails?id='+this.token})
 					})
-				})
+					.catch((err)=>{
+						this.saveViewShow = true
+						uni.showToast({
+							title: err.errmsg,
+							icon: 'none',
+							duration: 2000
+						})
+					})
+				}
 			},
 			handleChanggeItem(index) {
               this.cruIndex = index
@@ -591,24 +595,34 @@ import { mapState } from "vuex";
 					 });  
 					 return;
 				 }
-				this.forUploading = item
-				this.$refs.lFile.upload({
-					// #ifdef APP-PLUS
-					// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
-					currentWebview: this.$mp.page.$getAppWebview(),
-					// #endif
-					url: "https://www.peiyinstreet.com/business/chat/batch-upload", //替换为你的
-					name: 'file',
-					header: {  //根据你接口需求自定义
-					  userToken: this.token || ''	
-					},
-					formData: {
-					  orderId: 1000,
-					}
-					// body参数直接写key,value,如：
-					// formData: 'value1',
-					// key2: 'value2',
-				});
+				let platform =  uni.getSystemInfoSync().platform
+				if (platform == 'android' || platform == 'ios' || platform == 'devtools') {
+					this.forUploading = item
+					this.$refs.lFile.upload({
+						// #ifdef APP-PLUS
+						// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
+						currentWebview: this.$mp.page.$getAppWebview(),
+						// #endif
+						url: "https://www.peiyinstreet.com/business/chat/batch-upload", //替换为你的
+						name: 'file',
+						header: {  //根据你接口需求自定义
+						userToken: this.token || ''	
+						},
+						formData: {
+						orderId: 1000,
+						}
+						// body参数直接写key,value,如：
+						// formData: 'value1',
+						// key2: 'value2',
+					});
+				}else {
+                    uni.showToast({
+						title: "微信小程序仅支持从手机端上传",
+						icon: 'none',
+						mask: true,
+						duration: 3000
+					});
+				} 
 			},
 			onSuccess(res) {
 				if (this.forUploading==='new') {
@@ -984,7 +998,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 }
 .required_text {
 	margin-left: 18.116rpx;
-	font-size: 14px;
+	font-size: 25.362rpx;
 	font-family: PingFangSC-Regular, PingFang SC;
 	font-weight: 400;
 	color: RGBA(252, 81, 51, 1.00);
@@ -1001,7 +1015,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	.popup_conent {
 		position: absolute;
 		padding: 36.232rpx;
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		transform: translate(-50%,-50%);
 		min-width: 500.71rpx;
